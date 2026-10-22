@@ -1,16 +1,20 @@
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
+  LanguagePreference,
   NotificationType,
   Settings,
   SoundType,
   TrayTextMode,
 } from "../../types/settings";
+import { applyLanguagePreference } from "../lib/i18n-sync";
 import { toast } from "../toaster";
 import AdvancedCard from "./settings/advanced-card";
 import AudioCard from "./settings/audio-card";
 import BackdropCard from "./settings/backdrop-card";
 import BreaksCard from "./settings/breaks-card";
+import LanguageCard from "./settings/language-card";
 import SettingsCard from "./settings/settings-card";
 import SettingsHeader from "./settings/settings-header";
 import SkipCard from "./settings/skip-card";
@@ -23,17 +27,18 @@ import WorkingHoursSettings from "./settings/working-hours";
 import WelcomeModal from "./welcome-modal";
 
 export default function SettingsEl() {
+  const { t, i18n } = useTranslation();
   const [settingsDraft, setSettingsDraft] = useState<Settings | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const settings = (await ipcRenderer.invokeGetSettings()) as Settings;
-      setSettingsDraft(settings);
-      setSettings(settings);
+      const loaded = (await ipcRenderer.invokeGetSettings()) as Settings;
+      applyLanguagePreference(loaded.language);
+      setSettingsDraft(loaded);
+      setSettings(loaded);
 
-      // Check if this is the first time running the app
       const appInitialized = await ipcRenderer.invokeGetAppInitialized();
       setShowWelcomeModal(!appInitialized);
     })();
@@ -139,11 +144,21 @@ export default function SettingsEl() {
     });
   };
 
+  const handleLanguageChange = (language: LanguagePreference): void => {
+    setSettingsDraft({ ...settingsDraft, language });
+    // Preview immediately in the settings UI before save.
+    applyLanguagePreference(language);
+  };
+
   const handleSave = async () => {
     await ipcRenderer.invokeSetSettings(settingsDraft);
-    toast("Settings saved");
+    applyLanguagePreference(settingsDraft.language);
+    toast(t("settings.saved"));
     setSettings(settingsDraft);
   };
+
+  // Re-render tab labels etc. when language changes via draft preview.
+  void i18n.language;
 
   return (
     <div className="h-screen w-full flex flex-col bg-background">
@@ -188,8 +203,8 @@ export default function SettingsEl() {
 
           <TabsContent value="working-hours" className="m-0 space-y-6">
             <SettingsCard
-              title="Working Hours"
-              helperText="Only show breaks during your configured work schedule."
+              title={t("settings.workingHours.title")}
+              helperText={t("settings.workingHours.helperText")}
               toggle={{
                 checked: settingsDraft.workingHoursEnabled,
                 onCheckedChange: (checked) =>
@@ -224,21 +239,25 @@ export default function SettingsEl() {
             />
           </TabsContent>
 
-          {processEnv.SNAP === undefined && (
-            <TabsContent value="system" className="m-0 space-y-6">
+          <TabsContent value="system" className="m-0 space-y-6">
+            <LanguageCard
+              settingsDraft={settingsDraft}
+              onLanguageChange={handleLanguageChange}
+            />
+            {processEnv.SNAP === undefined && (
               <StartupCard
                 settingsDraft={settingsDraft}
                 onSwitchChange={handleSwitchChange}
               />
-              {processPlatform === "darwin" && (
-                <TrayCard
-                  settingsDraft={settingsDraft}
-                  onSwitchChange={handleSwitchChange}
-                  onTrayTextModeChange={handleTrayTextModeChange}
-                />
-              )}
-            </TabsContent>
-          )}
+            )}
+            {processEnv.SNAP === undefined && processPlatform === "darwin" && (
+              <TrayCard
+                settingsDraft={settingsDraft}
+                onSwitchChange={handleSwitchChange}
+                onTrayTextModeChange={handleTrayTextModeChange}
+              />
+            )}
+          </TabsContent>
         </div>
       </Tabs>
       <WelcomeModal

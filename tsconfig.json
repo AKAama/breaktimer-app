@@ -5,7 +5,8 @@
     "baseUrl": "./",
     "rootDir": "./",
     "paths": {
-      "@/*": ["./app/renderer/*"]
+      "@/*": ["./app/renderer/*"],
+      "@shared/*": ["./app/shared/*"]
     },
     "jsx": "react-jsx",
     "module": "esnext",

@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "node:url";
 
+const rootDir = path.dirname(fileURLToPath(import.meta.url));
+
 export default defineConfig({
   plugins: [tailwindcss(), react()],
   root: "./app/renderer",
@@ -14,10 +16,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(
-        path.dirname(fileURLToPath(import.meta.url)),
-        "./app/renderer",
-      ),
+      "@": path.resolve(rootDir, "./app/renderer"),
+      "@shared": path.resolve(rootDir, "./app/shared"),
     },
   },
   server: {

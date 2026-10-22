@@ -1,5 +1,6 @@
-import SettingsCard from "./settings-card";
+import { useTranslation } from "react-i18next";
 import { Settings } from "../../../types/settings";
+import SettingsCard from "./settings-card";
 
 interface StartupCardProps {
   settingsDraft: Settings;
@@ -10,10 +11,12 @@ export default function StartupCard({
   settingsDraft,
   onSwitchChange,
 }: StartupCardProps) {
+  const { t } = useTranslation();
+
   return (
     <SettingsCard
-      title="Start at login"
-      helperText="Automatically start BreakTimer when you log into your computer."
+      title={t("settings.startup.title")}
+      helperText={t("settings.startup.helperText")}
       toggle={{
         checked: settingsDraft.autoLaunch,
         onCheckedChange: (checked) => onSwitchChange("autoLaunch", checked),

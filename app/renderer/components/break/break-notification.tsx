@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { formatTimeSinceLastBreak } from "./utils";
 
 const GRACE_PERIOD_MS = 60000;
@@ -30,6 +31,7 @@ export function BreakNotification({
   textColor,
   backgroundColor,
 }: BreakNotificationProps) {
+  const { t } = useTranslation();
   const [phase, setPhase] = useState<"grace" | "countdown">("grace");
   const [msRemaining, setMsRemaining] = useState<number>(0);
 
@@ -101,8 +103,8 @@ export function BreakNotification({
             style={{ color: textColor }}
           >
             {phase === "grace"
-              ? "Start your break when ready..."
-              : `Break starting in ${secondsRemaining}s...`}
+              ? t("break.startWhenReady")
+              : t("break.startingIn", { seconds: secondsRemaining })}
           </h2>
           {timeSinceLastBreak !== null && (
             <p

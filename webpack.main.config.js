@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   mode: "production",
   entry: "./app/main/index.ts",
@@ -12,10 +14,13 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".json"],
+    alias: {
+      "@shared": path.resolve(__dirname, "app/shared"),
+    },
   },
   output: {
     filename: "main.prod.js",
-    path: require("path").resolve(__dirname, "app/main/dist"),
+    path: path.resolve(__dirname, "app/main/dist"),
   },
 };

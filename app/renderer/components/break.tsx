@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+import { applyLanguagePreference } from "../lib/i18n-sync";
 import { Settings, SoundType } from "../../types/settings";
 import { BreakNotification } from "./break/break-notification";
 import { BreakProgress } from "./break/break-progress";
@@ -29,6 +30,7 @@ export default function Break() {
           ipcRenderer.invokeWasStartedFromTray(),
         ]);
 
+      applyLanguagePreference(settings.language);
       setAllowPostpone(allowPostpone);
       setSettings(settings);
       setTimeSinceLastBreak(timeSince);

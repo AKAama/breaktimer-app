@@ -1,8 +1,9 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useTranslation } from "react-i18next";
+import { Settings } from "../../../types/settings";
 import SettingsCard from "./settings-card";
 import TimeInput from "./time-input";
-import { Settings } from "../../../types/settings";
 
 interface SmartBreaksCardProps {
   settingsDraft: Settings;
@@ -15,10 +16,12 @@ export default function SmartBreaksCard({
   onSwitchChange,
   onDateChange,
 }: SmartBreaksCardProps) {
+  const { t } = useTranslation();
+
   return (
     <SettingsCard
-      title="Smart Breaks"
-      helperText="Automatically detect natural breaks and reset the break timer."
+      title={t("settings.smartBreaks.title")}
+      helperText={t("settings.smartBreaks.helperText")}
       toggle={{
         checked: settingsDraft.idleResetEnabled,
         onCheckedChange: (checked) =>
@@ -27,7 +30,9 @@ export default function SmartBreaksCard({
     >
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label className="text-sm font-medium">Minimum idle time</Label>
+          <Label className="text-sm font-medium">
+            {t("settings.smartBreaks.minimumIdleTime")}
+          </Label>
           <TimeInput
             precision="seconds"
             value={settingsDraft.idleResetLengthSeconds}
@@ -49,7 +54,7 @@ export default function SmartBreaksCard({
             }
             disabled={!settingsDraft.idleResetEnabled}
           />
-          <Label>Show notification when break automatically detected</Label>
+          <Label>{t("settings.smartBreaks.showNotification")}</Label>
         </div>
       </div>
     </SettingsCard>

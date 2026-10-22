@@ -1,8 +1,9 @@
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import SettingsCard from "./settings-card";
-import { SoundSelect } from "../sound-select";
+import { useTranslation } from "react-i18next";
 import { Settings, SoundType } from "../../../types/settings";
+import { SoundSelect } from "../sound-select";
+import SettingsCard from "./settings-card";
 
 interface AudioCardProps {
   settingsDraft: Settings;
@@ -15,11 +16,15 @@ export default function AudioCard({
   onSoundTypeChange,
   onSliderChange,
 }: AudioCardProps) {
+  const { t } = useTranslation();
+
   return (
-    <SettingsCard title="Audio">
+    <SettingsCard title={t("settings.audio.title")}>
       <div className="grid grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label className="text-sm font-medium">Break sound</Label>
+          <Label className="text-sm font-medium">
+            {t("settings.audio.breakSound")}
+          </Label>
           <SoundSelect
             value={settingsDraft.soundType}
             onChange={onSoundTypeChange}
@@ -27,7 +32,9 @@ export default function AudioCard({
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-sm font-medium">Break sound volume</Label>
+          <Label className="text-sm font-medium">
+            {t("settings.audio.breakSoundVolume")}
+          </Label>
           <div className="px-2">
             <Slider
               min={0}
