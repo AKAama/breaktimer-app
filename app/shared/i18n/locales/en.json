@@ -1,0 +1,161 @@
+{
+  "app": {
+    "name": "BreakTimer",
+    "settingsWindowTitle": "BreakTimer — Settings"
+  },
+  "language": {
+    "title": "Language",
+    "helperText": "Choose the interface language. System follows your OS locale.",
+    "system": "System",
+    "english": "English",
+    "zhCN": "简体中文",
+    "restartHint": "Tray menu and notifications update immediately. Open break windows will use the new language on the next break."
+  },
+  "settings": {
+    "title": "Settings",
+    "save": "Save",
+    "saved": "Settings saved",
+    "tabs": {
+      "general": "General",
+      "workingHours": "Working Hours",
+      "customization": "Customization",
+      "system": "System"
+    },
+    "breaks": {
+      "title": "Breaks",
+      "type": "Type",
+      "frequency": "Frequency",
+      "length": "Length",
+      "breakTitle": "Title",
+      "message": "Message",
+      "messagePlaceholder": "Enter your break message...",
+      "popupBreak": "Popup break",
+      "simpleNotification": "Simple notification"
+    },
+    "smartBreaks": {
+      "title": "Smart Breaks",
+      "helperText": "Automatically detect natural breaks and reset the break timer.",
+      "minimumIdleTime": "Minimum idle time",
+      "showNotification": "Show notification when break automatically detected"
+    },
+    "snooze": {
+      "title": "Snooze",
+      "helperText": "Snoozing allows you to postpone breaks when busy.",
+      "length": "Length",
+      "limit": "Limit",
+      "noLimit": "No limit"
+    },
+    "skip": {
+      "title": "Skip",
+      "helperText": "Allow skipping breaks entirely without rescheduling them."
+    },
+    "advanced": {
+      "title": "Advanced",
+      "immediatelyStartBreaks": "Immediately start breaks",
+      "allowEndingEarly": "Allow ending break early"
+    },
+    "workingHours": {
+      "title": "Working Hours",
+      "helperText": "Only show breaks during your configured work schedule.",
+      "to": "to",
+      "copyToOtherDays": "Copy to other days",
+      "copyRangesTo": "Copy ranges to:",
+      "apply": "Apply"
+    },
+    "theme": {
+      "title": "Theme",
+      "primaryColor": "Primary color",
+      "textColor": "Text color",
+      "reset": "Reset"
+    },
+    "audio": {
+      "title": "Audio",
+      "breakSound": "Break sound",
+      "breakSoundVolume": "Break sound volume",
+      "none": "None",
+      "gong": "Gong",
+      "blip": "Blip",
+      "bloop": "Bloop",
+      "ping": "Ping",
+      "scifi": "Sci-fi"
+    },
+    "backdrop": {
+      "title": "Backdrop",
+      "helperText": "Show a colored overlay behind break windows to limit distractions.",
+      "opacity": "Opacity"
+    },
+    "startup": {
+      "title": "Start at login",
+      "helperText": "Automatically start BreakTimer when you log into your computer."
+    },
+    "tray": {
+      "title": "Menu Bar Text",
+      "helperText": "Show timing information next to the menu bar icon.",
+      "text": "Text",
+      "timeToNextBreak": "Time to next break",
+      "timeSinceLastBreak": "Time since last break"
+    }
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "welcome": {
+    "title": "BreakTimer runs in the background",
+    "description": "The app can be accessed via your system tray.",
+    "confirm": "Understood, let's go!"
+  },
+  "break": {
+    "cancelBreak": "Cancel Break",
+    "endBreak": "End Break",
+    "startWhenReady": "Start your break when ready...",
+    "startingIn": "Break starting in {{seconds}}s...",
+    "start": "Start",
+    "snooze": "Snooze",
+    "skip": "Skip",
+    "timeSinceLastBreakHours": "{{hours}}h{{minutesPart}} since last break",
+    "timeSinceLastBreakMinutes": "{{minutes}}m since last break",
+    "timeSinceLastBreakLessThanMinute": "Less than 1m since last break",
+    "minutesPart": " {{minutes}}m"
+  },
+  "tray": {
+    "nextBreakInMinutes_one": "Next break in {{count}} minute",
+    "nextBreakInMinutes_other": "Next break in {{count}} minutes",
+    "nextBreakInLessThanMinute": "Next break in less than a minute",
+    "disabledFor": "Disabled for {{time}}",
+    "outsideWorkingHours": "Outside of working hours",
+    "idle": "Idle",
+    "enable": "Enable",
+    "disable": "Disable...",
+    "indefinitely": "Indefinitely",
+    "minutes30": "30 minutes",
+    "hour1": "1 hour",
+    "hours2": "2 hours",
+    "hours4": "4 hours",
+    "restOfDay": "Rest of day",
+    "startBreakNow": "Start break now",
+    "settings": "Settings...",
+    "about": "About...",
+    "quit": "Quit"
+  },
+  "about": {
+    "title": "About",
+    "detail": "Build: {{version}}\n\nWebsite:\nhttps://breaktimer.app\n\nSource Code:\nhttps://github.com/tom-james-watson/breaktimer-app\n\nDistributed under GPL-3.0-or-later license."
+  },
+  "notifications": {
+    "timeForBreak": "Time for a break!",
+    "breakAutoDetected": "Break automatically detected",
+    "awayFor": "Away for {{time}}",
+    "updateAvailable": "Update Available",
+    "updateAvailableBody": "A new version of BreakTimer is available. Click to download."
+  },
+  "defaults": {
+    "breakTitle": "Time for a break.",
+    "breakMessage": "Rest your eyes.\nStretch your legs.\nBreathe. Relax."
+  }
+}

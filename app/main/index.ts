@@ -6,7 +6,14 @@ import { setAutoLauch } from "./lib/auto-launch";
 import { initBreaks } from "./lib/breaks";
 import "./lib/ipc";
 import { showNotification } from "./lib/notifications";
-import { getAppInitialized } from "./lib/store";
+import { resolveLanguage } from "../shared/i18n";
+import {
+  getAppInitialized,
+  getSettings,
+  setSettings,
+} from "./lib/store";
+import { defaultSettings } from "../types/settings";
+import { initMainI18n, t } from "./lib/i18n";
 import { initTray } from "./lib/tray";
 import { createSettingsWindow, createSoundsWindow } from "./lib/windows";
 
@@ -68,8 +75,8 @@ function checkForUpdates(): void {
       const downloadUrl = getDownloadUrl();
 
       showNotification(
-        "Update Available",
-        "A new version of BreakTimer is available. Click to download.",
+        t("notifications.updateAvailable"),
+        t("notifications.updateAvailableBody"),
         () => {
           shell.openExternal(downloadUrl).catch((error) => {
             log.error(`Failed to open download URL: ${error}`);
@@ -130,7 +137,28 @@ app.on("ready", async () => {
     app.dock?.hide();
   }
 
+  const settings = getSettings();
+  initMainI18n(settings.language);
+
   const appInitialized = getAppInitialized();
+  const resolvedLanguage = resolveLanguage(settings.language, app.getLocale());
+
+  // Seed localized break title/message for first-run Chinese systems.
+  if (
+    !appInitialized &&
+    resolvedLanguage === "zh-CN" &&
+    settings.breakTitle === defaultSettings.breakTitle &&
+    settings.breakMessage === defaultSettings.breakMessage
+  ) {
+    setSettings(
+      {
+        ...settings,
+        breakTitle: t("defaults.breakTitle"),
+        breakMessage: t("defaults.breakMessage"),
+      },
+      false,
+    );
+  }
 
   if (!appInitialized) {
     if (process.env.NODE_ENV !== "development") {

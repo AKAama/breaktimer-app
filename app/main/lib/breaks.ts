@@ -9,6 +9,7 @@ import {
   Settings,
   SoundType,
 } from "../../types/settings";
+import { t } from "./i18n";
 import { sendIpc } from "./ipc";
 import { showNotification } from "./notifications";
 import { getSettings } from "./store";
@@ -140,10 +141,12 @@ function createIdleNotification() {
 
   if (settings.idleResetNotification) {
     showNotification(
-      "Break automatically detected",
-      `Away for ${zeroPad(idleHours)}:${zeroPad(idleMinutes)}:${zeroPad(
-        idleSeconds,
-      )}`,
+      t("notifications.breakAutoDetected"),
+      t("notifications.awayFor", {
+        time: `${zeroPad(idleHours)}:${zeroPad(idleMinutes)}:${zeroPad(
+          idleSeconds,
+        )}`,
+      }),
     );
   }
 }
@@ -229,7 +232,7 @@ function doBreak(): void {
   }
 
   if (settings.notificationType === NotificationType.Notification) {
-    showNotification("Time for a break!", stripHtml(settings.breakMessage));
+    showNotification(t("notifications.timeForBreak"), stripHtml(settings.breakMessage));
     if (settings.soundType !== SoundType.None) {
       sendIpc(
         IpcChannel.SoundStartPlay,

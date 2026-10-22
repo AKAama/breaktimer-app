@@ -1,7 +1,8 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import SettingsCard from "./settings-card";
+import { useTranslation } from "react-i18next";
 import { NotificationType, Settings } from "../../../types/settings";
+import SettingsCard from "./settings-card";
 
 interface AdvancedCardProps {
   settingsDraft: Settings;
@@ -12,8 +13,10 @@ export default function AdvancedCard({
   settingsDraft,
   onSwitchChange,
 }: AdvancedCardProps) {
+  const { t } = useTranslation();
+
   return (
-    <SettingsCard title="Advanced">
+    <SettingsCard title={t("settings.advanced.title")}>
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
           <Switch
@@ -23,7 +26,7 @@ export default function AdvancedCard({
             }
             disabled={settingsDraft.notificationType !== NotificationType.Popup}
           />
-          <Label>Immediately start breaks</Label>
+          <Label>{t("settings.advanced.immediatelyStartBreaks")}</Label>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -33,7 +36,7 @@ export default function AdvancedCard({
               onSwitchChange("endBreakEnabled", checked)
             }
           />
-          <Label>Allow ending break early</Label>
+          <Label>{t("settings.advanced.allowEndingEarly")}</Label>
         </div>
       </div>
     </SettingsCard>

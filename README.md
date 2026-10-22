@@ -81,6 +81,18 @@ macOS: `/Users/<USERNAME>/Library/Application Support/BreakTimer`
 
 Windows: `C:\Users\<USERNAME>\AppData\Roaming\BreakTimer`
 
+
+## Language / 语言
+
+BreakTimer supports **English** and **Simplified Chinese (简体中文)**.
+
+- **Default:** follows the operating system locale (`app.getLocale()` / `navigator.language`). Chinese system locales (`zh*`) use 简体中文; everything else uses English.
+- **Manual switch:** open **Settings → System → Language** and choose *System*, *English*, or *简体中文*. Click **Save**.
+- Settings UI updates immediately. Tray menu, About dialog, and notifications update as soon as settings are saved. Break windows pick up the language on the next break (restarting an already-open break window is not required for future breaks).
+- Custom break title/message text you typed yourself is not auto-translated; only the built-in UI strings are.
+
+本地化实现使用共享的 `app/shared/i18n` 模块与 `en.json` / `zh-CN.json`，主进程与渲染进程共用同一套文案。
+
 ## Development
 
 See [./DEVELOPMENT.md](DEVELOPMENT.md).

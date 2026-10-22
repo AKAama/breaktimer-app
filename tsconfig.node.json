@@ -15,9 +15,12 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@shared/*": ["./app/shared/*"]
+    }
   },
-  "include": ["app/main/**/*"],
+  "include": ["app/main/**/*", "app/shared/**/*", "app/types/**/*"],
   "ts-node": {
     "compilerOptions": {
       "module": "nodenext",

@@ -27,6 +27,8 @@ export enum TrayTextMode {
   TimeSinceLastBreak = "TIME_SINCE_LAST_BREAK",
 }
 
+export type LanguagePreference = "system" | "en" | "zh-CN";
+
 export interface Settings {
   autoLaunch: boolean;
   breaksEnabled: boolean;
@@ -60,6 +62,7 @@ export interface Settings {
   skipBreakEnabled: boolean;
   postponeBreakEnabled: boolean;
   immediatelyStartBreaks: boolean;
+  language: LanguagePreference;
 }
 
 export const defaultWorkingRange: WorkingHoursRange = {
@@ -121,7 +124,17 @@ export const defaultSettings: Settings = {
   skipBreakEnabled: false,
   postponeBreakEnabled: true,
   immediatelyStartBreaks: false,
+  language: "system",
 };
+
+export type DayKey =
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday";
 
 export interface DayConfig {
   key:
@@ -132,15 +145,18 @@ export interface DayConfig {
     | "workingHoursFriday"
     | "workingHoursSaturday"
     | "workingHoursSunday";
+  /** i18n key under `days.*` */
+  dayKey: DayKey;
+  /** @deprecated Use dayKey with t(`days.${dayKey}`) — kept for tests/compat */
   label: string;
 }
 
 export const daysConfig: DayConfig[] = [
-  { key: "workingHoursMonday", label: "Monday" },
-  { key: "workingHoursTuesday", label: "Tuesday" },
-  { key: "workingHoursWednesday", label: "Wednesday" },
-  { key: "workingHoursThursday", label: "Thursday" },
-  { key: "workingHoursFriday", label: "Friday" },
-  { key: "workingHoursSaturday", label: "Saturday" },
-  { key: "workingHoursSunday", label: "Sunday" },
+  { key: "workingHoursMonday", dayKey: "monday", label: "Monday" },
+  { key: "workingHoursTuesday", dayKey: "tuesday", label: "Tuesday" },
+  { key: "workingHoursWednesday", dayKey: "wednesday", label: "Wednesday" },
+  { key: "workingHoursThursday", dayKey: "thursday", label: "Thursday" },
+  { key: "workingHoursFriday", dayKey: "friday", label: "Friday" },
+  { key: "workingHoursSaturday", dayKey: "saturday", label: "Saturday" },
+  { key: "workingHoursSunday", dayKey: "sunday", label: "Sunday" },
 ];

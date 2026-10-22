@@ -1,13 +1,24 @@
+import { t } from "../../../shared/i18n";
+
 export function formatTimeSinceLastBreak(seconds: number): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
 
   if (hours > 0) {
-    return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""} since last break`;
+    const minutesPart =
+      minutes > 0
+        ? t("break.minutesPart", { minutes: String(minutes) })
+        : "";
+    return t("break.timeSinceLastBreakHours", {
+      hours: String(hours),
+      minutesPart,
+    });
   } else if (minutes > 0) {
-    return `${minutes}m since last break`;
+    return t("break.timeSinceLastBreakMinutes", {
+      minutes: String(minutes),
+    });
   } else {
-    return "Less than 1m since last break";
+    return t("break.timeSinceLastBreakLessThanMinute");
   }
 }
 
